@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts/contacts.service';
-import { phoneTypeValues } from '../contacts/contact.model';
+import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 
 @Component({
   templateUrl: './edit-contact.component.html',
@@ -10,6 +10,7 @@ import { phoneTypeValues } from '../contacts/contact.model';
 })
 export class EditContactComponent implements OnInit {
   phoneTypes = phoneTypeValues;
+  addressTypes = addressTypeValues;
   contactForm = this.fb.nonNullable.group({
     id: '',
     firstName: '',
@@ -47,7 +48,6 @@ export class EditContactComponent implements OnInit {
 
   saveContact() {
     console.log(this.contactForm.getRawValue());
-    console.log(this.contactForm.controls.phone.controls.phoneType.value);
 
     this.contactsService.saveContact(this.contactForm.getRawValue()).subscribe({
       next: () => this.router.navigate(['/contacts'])
