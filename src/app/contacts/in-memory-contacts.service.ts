@@ -27,6 +27,7 @@ export class InMemoryContactsApi implements InMemoryDbService {
         firstName: 'Mortimer',
         lastName: 'Flungford',
         dateOfBirth: new Date('1988/10/05'),
+        // dateOfBirth: new Date('1988/10/05').toISOString(),
         favoritesRanking: 0,
         phone: { phoneNumber: '555-877-5678', phoneType: 'mobile' },
         address: {

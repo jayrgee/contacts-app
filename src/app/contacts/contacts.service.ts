@@ -16,7 +16,8 @@ export class ContactsService {
         const dob = c.dateOfBirth ? new Date(c.dateOfBirth) : null;
         return { ...c, dateOfBirth: dob }
       }));
-  }
+      // .pipe(map(c => { c.dateOfBirth = c.dateOfBirth.split('T')[0]; return c; }));
+    }
 
   getAllContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>('api/contacts');

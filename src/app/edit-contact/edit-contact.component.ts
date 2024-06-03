@@ -51,7 +51,8 @@ export class EditContactComponent implements OnInit {
   saveContact() {
     // console.log(this.contactForm.getRawValue());
     // console.log(this.contactForm.value.personal, typeof this.contactForm.value.personal);
-    console.log(this.contactForm.value.favoritesRanking, typeof this.contactForm.value.favoritesRanking);
+    // console.log(this.contactForm.value.favoritesRanking, typeof this.contactForm.value.favoritesRanking);
+    console.log(this.contactForm.value.dateOfBirth, typeof this.contactForm.value.dateOfBirth);
 
     this.contactsService.saveContact(this.contactForm.getRawValue()).subscribe({
       next: () => this.router.navigate(['/contacts'])
