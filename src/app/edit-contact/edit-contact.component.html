@@ -12,9 +12,10 @@
         <em *ngIf="firstName.errors?.['minlength'] && firstName.touched">First Name must be 3 characters</em>
         <!-- {{contactForm.controls.firstName.valid}} -->
         <input formControlName="lastName" placeholder="Last Name" />
-        <input formControlName="dateOfBirth" type="date"
+        <input formControlName="dateOfBirth" type="date" placeholder="Date of Birth" />
+        <!-- <input formControlName="dateOfBirth" type="date"
           [value]="contactForm.controls.dateOfBirth.value | date:'yyyy-MM-dd'"
-          placeholder="Date of Birth" />
+          placeholder="Date of Birth" /> -->
         <!-- <input formControlName="favoritesRanking" type="number" placeholder="Favorites Ranking" /> -->
         <div>
           <span>Favourites Ranking: {{contactForm.controls.favoritesRanking.value}}</span>
