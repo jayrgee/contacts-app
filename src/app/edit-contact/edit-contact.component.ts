@@ -20,10 +20,7 @@ export class EditContactComponent implements OnInit {
     lastName: '',
     dateOfBirth: <Date | null>null,
     favoritesRanking: <number | null>null,
-    phone: this.fb.nonNullable.group({
-      phoneNumber: '',
-      phoneType: '',
-    }),
+    phones: this.fb.array([this.createPhoneGroup()]),
     address: this.fb.nonNullable.group({
       streetAddress: ['', Validators.required],
       city: ['', Validators.required],
@@ -48,6 +45,13 @@ export class EditContactComponent implements OnInit {
         if (!contact) return;
         this.contactForm.setValue(contact);
       });
+  }
+
+  createPhoneGroup(){
+    return this.fb.nonNullable.group({
+      phoneNumber: '',
+      phoneType: '',
+    });
   }
 
   get firstName() {
