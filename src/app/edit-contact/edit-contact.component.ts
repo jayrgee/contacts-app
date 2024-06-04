@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts/contacts.service';
 import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 import { restrictedWords } from '../validators/restricted-words.validator';
-import { distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   templateUrl: './edit-contact.component.html',
@@ -40,7 +40,10 @@ export class EditContactComponent implements OnInit {
 
   ngOnInit() {
     const contactId = this.route.snapshot.params['id'];
-    if (!contactId) return
+    if (!contactId) {
+      this.subscribeToAddressChanges();
+      return
+    }
 
     this.contactsService.getContact(contactId).subscribe(contact => {
         if (!contact) return;
@@ -50,6 +53,32 @@ export class EditContactComponent implements OnInit {
         }
 
         this.contactForm.setValue(contact);
+        this.subscribeToAddressChanges();
+      });
+  }
+
+  subscribeToAddressChanges() {
+    const addressGroup = this.contactForm.controls.address;
+
+    addressGroup.valueChanges
+      .pipe(distinctUntilChanged(this.stringifyCompare))
+      .subscribe(() => {
+        for (const controlName in addressGroup.controls){
+          addressGroup.get(controlName)?.removeValidators([Validators.required]);
+          addressGroup.get(controlName)?.updateValueAndValidity();
+        }
+      });
+
+    addressGroup.valueChanges
+      .pipe(
+        debounceTime(2000),
+        distinctUntilChanged(this.stringifyCompare)
+        )
+      .subscribe(() => {
+        for (const controlName in addressGroup.controls){
+          addressGroup.get(controlName)?.addValidators([Validators.required]);
+          addressGroup.get(controlName)?.updateValueAndValidity();
+        }
       });
   }
 
@@ -65,7 +94,7 @@ export class EditContactComponent implements OnInit {
     });
 
     phoneGroup.controls.preferred.valueChanges
-    .pipe(distinctUntilChanged((a, b) => this.stringifyCompare(a, b))) // prevents infinite loop - only emit when values have changed
+    .pipe(distinctUntilChanged(this.stringifyCompare)) // prevents infinite loop - only emit when values have changed
     .subscribe(value => {
       if (value)
         phoneGroup.controls.phoneNumber.addValidators(Validators.required)
@@ -83,6 +112,10 @@ export class EditContactComponent implements OnInit {
 
   get firstName() {
     return this.contactForm.controls.firstName;
+  }
+
+  get addressGroup() {
+    return this.contactForm.controls.address
   }
 
   get notes() {
