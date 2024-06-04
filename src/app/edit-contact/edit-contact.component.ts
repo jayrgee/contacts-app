@@ -13,6 +13,7 @@ export class EditContactComponent implements OnInit {
   phoneTypes = phoneTypeValues;
   addressTypes = addressTypeValues;
   contactForm = this.fb.nonNullable.group({
+    icon: '',
     id: '',
     personal: false,
     firstName: ['', [Validators.required, Validators.minLength(3)]],
