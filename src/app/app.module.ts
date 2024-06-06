@@ -12,15 +12,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorDirective } from './date-value-accessor/date-value-accessor.directive';
 import { ProfileIconSelectorComponent } from './profile-icon-selector/profile-icon-selector.component';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         ContactListComponent,
         EditContactComponent,
         DateValueAccessorDirective,
         ProfileIconSelectorComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }),
-        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ReactiveFormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }
