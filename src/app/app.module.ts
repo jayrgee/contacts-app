@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,18 +10,17 @@ import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { InMemoryContactsApi } from './contacts/in-memory-contacts.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ContactListComponent,
-    EditContactComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 })
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ContactListComponent,
+        EditContactComponent
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 })
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
 })
 export class AppModule { }
