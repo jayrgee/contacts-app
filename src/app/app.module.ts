@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,22 +12,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorDirective } from './date-value-accessor/date-value-accessor.directive';
 import { ProfileIconSelectorComponent } from './profile-icon-selector/profile-icon-selector.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    ContactListComponent,
-    EditContactComponent,
-    DateValueAccessorDirective,
-    ProfileIconSelectorComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }),
-    ReactiveFormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        ContactListComponent,
+        EditContactComponent,
+        DateValueAccessorDirective,
+        ProfileIconSelectorComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }),
+        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
