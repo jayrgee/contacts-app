@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -24,8 +24,12 @@ import { ProfileIconSelectorComponent } from './profile-icon-selector/profile-ic
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }),
-        ReactiveFormsModule],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
+        ReactiveFormsModule
+    ],
+    providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        // https://stackoverflow.com/questions/76427328/anyone-try-using-inmemorywebapi-with-standalone-components/76492870#76492870
+        importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }))
+    ]
 })
 export class AppModule { }
