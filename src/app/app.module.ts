@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,10 +19,11 @@ import { InMemoryContactsApi } from './contacts/in-memory-contacts.service';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 })
     ],
-    // providers: [provideHttpClient(withInterceptorsFromDi())]
-    providers: []
+    providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        // https://stackoverflow.com/questions/76427328/anyone-try-using-inmemorywebapi-with-standalone-components/76492870#76492870
+        importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 200 }))
+    ]
 })
 export class AppModule { }
