@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactsService } from '../contacts/contacts.service';
 import { Contact } from '../contacts/contact.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+    templateUrl: './contact-list.component.html',
+    styleUrls: ['./contact-list.component.css'],
+    standalone: true,
+    imports: [RouterLink]
 })
 export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];

@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../contacts/contacts.service';
 import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 import { restrictedWords } from '../validators/restricted-words.validator';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { DateValueAccessorDirective } from '../date-value-accessor/date-value-accessor.directive';
+import { ProfileIconSelectorComponent } from '../profile-icon-selector/profile-icon-selector.component';
 
 @Component({
-  templateUrl: './edit-contact.component.html',
-  styleUrls: ['./edit-contact.component.css']
+    templateUrl: './edit-contact.component.html',
+    styleUrls: ['./edit-contact.component.css'],
+    standalone: true,
+    imports: [ReactiveFormsModule, ProfileIconSelectorComponent, DateValueAccessorDirective]
 })
 export class EditContactComponent implements OnInit {
   phoneTypes = phoneTypeValues;

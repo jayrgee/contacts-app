@@ -9,10 +9,11 @@ const PROFILE_ICON_VALUE_PROVIDER: Provider = {
 }
 
 @Component({
-  selector: 'con-profile-icon-selector',
-  templateUrl: './profile-icon-selector.component.html',
-  styleUrls: ['./profile-icon-selector.component.css'],
-  providers: [PROFILE_ICON_VALUE_PROVIDER]
+    selector: 'con-profile-icon-selector',
+    templateUrl: './profile-icon-selector.component.html',
+    styleUrls: ['./profile-icon-selector.component.css'],
+    providers: [PROFILE_ICON_VALUE_PROVIDER],
+    standalone: true
 })
 export class ProfileIconSelectorComponent implements ControlValueAccessor {
   profileIcons = profileIconNames;

@@ -8,8 +8,8 @@ describe('ProfileIconSelectorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProfileIconSelectorComponent]
-    });
+    imports: [ProfileIconSelectorComponent]
+});
     fixture = TestBed.createComponent(ProfileIconSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

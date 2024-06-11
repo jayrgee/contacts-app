@@ -8,8 +8,9 @@ const DATE_VALUE_PROVIDER: Provider = {
 }
 
 @Directive({
-  selector: 'input([type=date])[formControlName],input([type=date])[formControl],input([type=date])[ngModel]',
-  providers: [DATE_VALUE_PROVIDER]
+    selector: 'input([type=date])[formControlName],input([type=date])[formControl],input([type=date])[ngModel]',
+    providers: [DATE_VALUE_PROVIDER],
+    standalone: true
 })
 export class DateValueAccessorDirective implements ControlValueAccessor {
 
