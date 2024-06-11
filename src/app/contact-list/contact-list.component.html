@@ -13,20 +13,28 @@
       <th>Address</th>
     </thead>
     <tbody>
-      <tr *ngIf="favoriteContacts.length === 0">
-        <td class="center" colspan="3">You have no favorite contacts</td>
-      </tr>
-      <ng-container *ngIf="favoriteContacts.length > 0">
-        <tr *ngFor="let contact of favoriteContacts" [routerLink]="['/contacts/edit', contact.id]">
-          <td>{{contact.firstName}} {{contact.lastName}}</td>
-          <td><span *ngIf="contact.phones[0]">{{contact.phones[0].phoneNumber}}</span></td>
-          <td *ngIf="contact.address">
-            {{contact.address.streetAddress}}, {{contact.address.city}},
-            {{contact.address.state}},
-            {{contact.address.postalCode}}
-          </td>
+      @if (favoriteContacts.length === 0) {
+        <tr>
+          <td class="center" colspan="3">You have no favorite contacts</td>
         </tr>
-      </ng-container>
+      }
+      @if (favoriteContacts.length > 0) {
+        @for (contact of favoriteContacts; track contact) {
+          <tr [routerLink]="['/contacts/edit', contact.id]">
+            <td>{{contact.firstName}} {{contact.lastName}}</td>
+            <td>@if (contact.phones[0]) {
+              <span>{{contact.phones[0].phoneNumber}}</span>
+            }</td>
+            @if (contact.address) {
+              <td>
+                {{contact.address.streetAddress}}, {{contact.address.city}},
+                {{contact.address.state}},
+                {{contact.address.postalCode}}
+              </td>
+            }
+          </tr>
+        }
+      }
     </tbody>
   </table>
   <h2>
@@ -39,20 +47,28 @@
       <th>Address</th>
     </thead>
     <tbody>
-      <tr *ngIf=" contacts.length===0">
-        <td class="center" colspan="3">You have no contacts</td>
-      </tr>
-      <ng-container *ngIf="contacts.length > 0">
-        <tr *ngFor="let contact of contacts" [routerLink]="['/contacts/edit', contact.id]">
-          <td>{{contact.firstName}} {{contact.lastName}}</td>
-          <td><span *ngIf="contact.phones[0]">{{contact.phones[0].phoneNumber}}</span></td>
-          <td *ngIf="contact.address">
-            {{contact.address.streetAddress}}, {{contact.address.city}},
-            {{contact.address.state}},
-            {{contact.address.postalCode}}
-          </td>
+      @if (contacts.length===0) {
+        <tr>
+          <td class="center" colspan="3">You have no contacts</td>
         </tr>
-      </ng-container>
+      }
+      @if (contacts.length > 0) {
+        @for (contact of contacts; track contact) {
+          <tr [routerLink]="['/contacts/edit', contact.id]">
+            <td>{{contact.firstName}} {{contact.lastName}}</td>
+            <td>@if (contact.phones[0]) {
+              <span>{{contact.phones[0].phoneNumber}}</span>
+            }</td>
+            @if (contact.address) {
+              <td>
+                {{contact.address.streetAddress}}, {{contact.address.city}},
+                {{contact.address.state}},
+                {{contact.address.postalCode}}
+              </td>
+            }
+          </tr>
+        }
+      }
     </tbody>
   </table>
 </div>
